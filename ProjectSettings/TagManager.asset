@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags: []
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - Land
+  - Projectiles
+  - Player
+  - NonPhysical
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Background
+    uniqueID: 4008451057
+    locked: 0
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Land
+    uniqueID: 4019699239
+    locked: 0
+  - name: Projectiles
+    uniqueID: 1931379731
+    locked: 0
+  - name: Tank
+    uniqueID: 2454062297
+    locked: 0
+  - name: UI
+    uniqueID: 1271502613
+    locked: 0
