@@ -131,7 +131,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1332708149707016}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 4.13, y: 2.18, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4236517680664730}
@@ -145,7 +145,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1991979703690132}
   m_LocalRotation: {x: -0, y: 0.00000023841858, z: -0, w: 1}
-  m_LocalPosition: {x: -0.086, y: -0.049999952, z: 0.000000010244548}
+  m_LocalPosition: {x: -0.08600019, y: -0.049999952, z: 0.000000056868885}
   m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_Children: []
   m_Father: {fileID: 4236517680664730}
@@ -158,7 +158,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1613865342891878}
   m_LocalRotation: {x: -0, y: 0.00000023841858, z: -0, w: 1}
-  m_LocalPosition: {x: 0.086, y: -0.049999952, z: -0.000000010244548}
+  m_LocalPosition: {x: 0.08600019, y: -0.049999952, z: -0.000000056868885}
   m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_Children: []
   m_Father: {fileID: 4236517680664730}
@@ -646,7 +646,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04edb8e9de5ed784a8d2c16cf8eb3935, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colorRange: {fileID: 11400000, guid: 3138f3b1fa09c2241a6707519e7e1e3a, type: 2}
   startScale: {x: 0.1, y: 0.1, z: 1}
   endScale: {x: 0.16, y: 0.16, z: 1}
   decalPrefab: {fileID: 1007249867275930, guid: cf507bd216e963149a5aaaa94ea97e42,
@@ -683,7 +682,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04edb8e9de5ed784a8d2c16cf8eb3935, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colorRange: {fileID: 11400000, guid: 3138f3b1fa09c2241a6707519e7e1e3a, type: 2}
   startScale: {x: 0.1, y: 0.1, z: 1}
   endScale: {x: 0.16, y: 0.16, z: 1}
   decalPrefab: {fileID: 1007249867275930, guid: cf507bd216e963149a5aaaa94ea97e42,
@@ -720,7 +718,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04edb8e9de5ed784a8d2c16cf8eb3935, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colorRange: {fileID: 11400000, guid: 3138f3b1fa09c2241a6707519e7e1e3a, type: 2}
   startScale: {x: 0.1, y: 0.1, z: 1}
   endScale: {x: 0.16, y: 0.16, z: 1}
   decalPrefab: {fileID: 1007249867275930, guid: cf507bd216e963149a5aaaa94ea97e42,

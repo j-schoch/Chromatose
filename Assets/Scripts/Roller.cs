@@ -15,7 +15,7 @@ public class Roller : MonoBehaviour
 	public Collider2D Collider { get; private set; }
 	public Rigidbody2D Rigidbody { get; private set; }
 
-	private Vector3 Input { get; set; }
+	private Vector3 PlayerInput { get; set; }
 	private bool bShouldJump;
 	private bool bGrounded;
 
@@ -29,8 +29,8 @@ public class Roller : MonoBehaviour
 	// Update is called once per frame
 	private void Update()
 	{
-		Input = new Vector2(UnityEngine.Input.GetAxis("Horizontal"), UnityEngine.Input.GetAxis("Vertical"));
-		if (bGrounded && UnityEngine.Input.GetKeyDown(KeyCode.Space))
+		PlayerInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+		if (bGrounded && Input.GetKeyDown(KeyCode.Space))
 		{
 			bShouldJump = true;
 		}
@@ -44,6 +44,7 @@ public class Roller : MonoBehaviour
 
 		Collider2D[] results = new Collider2D[1];
 		Collider.OverlapCollider(filter, results);
+
 		if (results.Length > 0 && results[0] != null)
 		{
 			ColliderDistance2D distance2D = Physics2D.Distance(results[0], Collider);
@@ -67,9 +68,9 @@ public class Roller : MonoBehaviour
 		}
 
 
-		if (Input.x != 0)
+		if (PlayerInput.x != 0)
 		{
-			Rigidbody.AddTorque(Input.x * speed * Time.deltaTime);
+			Rigidbody.AddTorque(PlayerInput.x * speed * Time.deltaTime);
 		}
 	}
 }

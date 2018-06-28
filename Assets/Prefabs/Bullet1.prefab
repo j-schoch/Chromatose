@@ -56,7 +56,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1393163861108002}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 3.47, y: 1.18, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4492077437166404}
@@ -271,7 +271,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04edb8e9de5ed784a8d2c16cf8eb3935, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colorRange: {fileID: 11400000, guid: 3138f3b1fa09c2241a6707519e7e1e3a, type: 2}
   startScale: {x: 0.1, y: 0.1, z: 1}
   endScale: {x: 0.4, y: 0.4, z: 1}
   decalPrefab: {fileID: 1007249867275930, guid: cf507bd216e963149a5aaaa94ea97e42,

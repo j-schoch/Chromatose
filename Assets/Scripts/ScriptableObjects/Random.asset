@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: Random
   m_EditorClassIdentifier: 
   hueRange: {x: 0, y: 1}
-  saturationRange: {x: 0, y: 1}
-  brightnessRange: {x: 0, y: 1}
+  saturationRange: {x: 0.3, y: 1}
+  brightnessRange: {x: 0.5, y: 1}
   useDefinedColorChoices: 0
   definedColors: []

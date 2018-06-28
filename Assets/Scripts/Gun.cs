@@ -6,11 +6,11 @@ using UnityEngine.EventSystems;
 
 public class Gun : MonoBehaviour
 {
-	[SerializeField] List<GameObject> projectiles;
-	[SerializeField] float chargeDuration = 1f;
-	[SerializeField] List<ColorRange> colorRangeToggles;
+	[SerializeField] private List<GameObject> projectiles;
+	[SerializeField] private float chargeDuration = 1f;
+	[SerializeField] private List<ColorRange> colorRangeToggles;
 
-	bool MouseOverUI
+	private bool MouseOverUI
 	{
 		get
 		{
@@ -18,27 +18,30 @@ public class Gun : MonoBehaviour
 		}
 	}
 
-	Rigidbody2D Rigidbody { get; set; }
+	private Rigidbody2D Rigidbody { get; set; }
 
-	GameObject currentProjectilePrefab;
-	GameObject queuedProjectile;
-	Vector3 launchDirection;
-	Vector3 mousePosition;
-	bool firstShot = true;
-	bool charging;
-	float charge;
-	float timeCharging;
-	List<IChargeable> chargeables = new List<IChargeable>();
+	private GameObject currentProjectilePrefab;
+	private GameObject queuedProjectile;
+	private Vector3 launchDirection;
+	private Vector3 mousePosition;
+	private bool firstShot = true;
+	private bool charging;
+	private float charge;
+	private float timeCharging;
+	private List<IChargeable> chargeables = new List<IChargeable>();
 
-	int currentColorRange;
-	int currentProjectileIndex = 0;
+	private int currentColorList;
+	private int currentProjectileIndex = 0;
+
+	private List<ColorBall> colorBalls = new List<ColorBall>();
+
 	void Awake()
 	{
 		Rigidbody = GetComponentInParent<Rigidbody2D>();
-		ColorBall.ColorRange = colorRangeToggles[currentColorRange];
+		ColorBall.ColorRange = colorRangeToggles[currentColorList];
 	}
 
-	void Start()
+	private void Start()
 	{
 		if (projectiles.Count > 0)
 		{
@@ -47,8 +50,13 @@ public class Gun : MonoBehaviour
 		ResetCharging();
 	}
 
-	void Update()
+	private void Update()
 	{
+		if (Time.timeScale < 1)
+		{
+			return;
+		}
+
 		if (Input.GetKeyDown(KeyCode.Alpha1))
 		{
 			SetProjectile(0);
@@ -62,29 +70,18 @@ public class Gun : MonoBehaviour
 			SetProjectile(2);
 		}
 
-		if (Input.GetKeyDown(KeyCode.R))
+		if (!MouseOverUI && Input.GetKeyDown(KeyCode.Mouse0))
 		{
-			currentColorRange++;
-			if (currentColorRange >= colorRangeToggles.Count)
+			charging = true;
+			foreach (IChargeable chargeable in chargeables)
 			{
-				currentColorRange = 0;
+				chargeable.OnChargeBegin();
 			}
-
-			ColorBall.ColorRange = colorRangeToggles[currentColorRange];
-			SetProjectile(currentProjectileIndex);
 		}
 
-		if (!MouseOverUI && Input.GetKey(KeyCode.Mouse0))
+		if (charging)
 		{
-			if (!charging)
-			{
-				charging = true;
-				foreach (IChargeable chargeable in chargeables)
-				{
-					chargeable.OnChargeBegin();
-				}
-			}
-			else
+			if (Input.GetKey(KeyCode.Mouse0))
 			{
 				UpdateLaunchDirection();
 				timeCharging += Time.deltaTime;
@@ -94,33 +91,61 @@ public class Gun : MonoBehaviour
 					chargeable.SetCharge(charge);
 				}
 			}
+
+			if (Input.GetKeyUp(KeyCode.Mouse0))
+			{
+				if (firstShot)
+				{
+					firstShot = false;
+					AudioManager.Instance.StartBackgroundMusic();
+				}
+
+				UpdateLaunchDirection();
+
+				Bullet bullet = queuedProjectile.GetComponent<Bullet>();
+				colorBalls.AddRange(bullet.ColorBalls);
+				bullet.LaunchDirection = launchDirection;
+				bullet.InheritedVelocity = Rigidbody.velocity * 0.3f;
+				if (bullet.Rotator != null)
+				{
+					bullet.Rotator.speed = Rigidbody.angularVelocity;
+				}
+				bullet.transform.SetParent(null);
+				bullet.enabled = true;
+
+				foreach (IChargeable chargeable in chargeables)
+				{
+					chargeable.OnChargeComplete(charge);
+				}
+
+				ResetCharging();
+			}
 		}
-		if (charging && Input.GetKeyUp(KeyCode.Mouse0))
+	}
+
+	public void SetLifetimeEnabled(bool enabled)
+	{
+		ColorBall.LifetimeEnabled = enabled;
+	}
+
+	public void TimeoutAllProjectiles()
+	{
+		foreach (ColorBall cb in colorBalls)
 		{
-			if (firstShot)
+			if (cb != null)
 			{
-				firstShot = false;
-				AudioManager.Instance.StartBackgroundMusic();
+				cb.Stop();
 			}
+		}
+		colorBalls.Clear();
+	}
 
-			UpdateLaunchDirection();
-
-			Bullet bullet = queuedProjectile.GetComponent<Bullet>();
-			bullet.LaunchDirection = launchDirection;
-			bullet.InheritedVelocity = Rigidbody.velocity * 0.3f;
-			if (bullet.Rotator != null)
-			{
-				bullet.Rotator.speed = Rigidbody.angularVelocity;
-			}
-			bullet.transform.SetParent(null);
-			bullet.enabled = true;
-
-			foreach (IChargeable chargeable in chargeables)
-			{
-				chargeable.OnChargeComplete(charge);
-			}
-
-			ResetCharging();
+	public void SetProjectileColor(int index)
+	{
+		if (ColorBall.ColorRange != colorRangeToggles[index])
+		{
+			ColorBall.ColorRange = colorRangeToggles[index];
+			SetProjectile(currentProjectileIndex);
 		}
 	}
 

@@ -7,6 +7,8 @@ public class ColorBall : MonoBehaviour, IChargeable
 {
 	public static ColorRange ColorRange;
 
+	public static bool LifetimeEnabled = true;
+
 	[SerializeField] private Vector3 startScale;
 	[SerializeField] private Vector3 endScale;
 	[SerializeField] private GameObject decalPrefab;
@@ -36,7 +38,23 @@ public class ColorBall : MonoBehaviour, IChargeable
 
 	private IEnumerator StopAfterLifetime()
 	{
-		yield return new WaitForSeconds(lifetime);
+		float elapsedTime = 0;
+
+		while (elapsedTime < lifetime)
+		{
+			while (!LifetimeEnabled)
+			{
+				yield return null;
+			}
+			elapsedTime += Time.deltaTime;
+			yield return null;
+		}
+
+		Stop();
+	}
+
+	public void Stop()
+	{
 		Trail.DOResize(0, 0, 5f)
 			.OnUpdate(() => {
 				Sprite.transform.localScale = Vector3.one * Trail.startWidth;

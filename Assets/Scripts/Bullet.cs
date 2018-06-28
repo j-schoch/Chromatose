@@ -20,7 +20,7 @@ public class Bullet : MonoBehaviour, IChargeable
 	public Rigidbody2D ParentRigidbody { get; set; }
 	public Rotator Rotator { get; private set; }
 
-	private List<ColorBall> colorBalls;
+	public List<ColorBall> ColorBalls { get; private set; }
 	private int colorBallsAlive;
 
 	private void Awake()
@@ -31,13 +31,13 @@ public class Bullet : MonoBehaviour, IChargeable
 		{
 			ParentRigidbody = transform.parent.GetComponent<Rigidbody2D>();
 		}
-		colorBalls = GetComponentsInChildren<ColorBall>().ToList();
-		colorBallsAlive = colorBalls.Count;
+		ColorBalls = GetComponentsInChildren<ColorBall>().ToList();
+		colorBallsAlive = ColorBalls.Count;
 	}
 
 	private void OnEnable()
 	{
-		foreach (ColorBall ball in colorBalls)
+		foreach (ColorBall ball in ColorBalls)
 		{
 			ball.OnColorBallHit.AddListener(onColorBallHit);
 		}
@@ -93,7 +93,7 @@ public class Bullet : MonoBehaviour, IChargeable
 		{
 			Rotator.enabled = true;
 		}
-		foreach(ColorBall colorball in colorBalls)
+		foreach(ColorBall colorball in ColorBalls)
 		{
 			colorball.Trail.widthMultiplier = finalCharge * colorball.EndScale.x;
 		}
